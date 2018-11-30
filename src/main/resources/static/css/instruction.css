@@ -1,0 +1,21 @@
+.contents {
+    font-family: Century Gothic;
+}
+
+.header {
+    font-family: Century Gothic;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.clickable-icon {
+    cursor: pointer;
+}
+
+.hidden {
+    disaply: none;
+}
+

@@ -1,0 +1,26 @@
+.header {
+    font-family: Courier;
+}
+
+.subheader {
+    font-family: Century Gothic;
+}
+
+.no-sort::after {
+    display: none !important;
+}
+
+.no-sort::before {
+    display: none !important;
+}
+
+.no-sort {
+    pointer-events: none !important;
+    cursor: default !important;
+}
+
+input {
+    border: none;
+    font-style: italic;
+    background: transparent;
+}

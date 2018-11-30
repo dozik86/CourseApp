@@ -1,0 +1,36 @@
+textarea {
+    width: auto !important;
+}
+
+.tags {
+    width: 300px !important;
+}
+
+select {
+    width: 300px !important;
+}
+
+#msg-error {
+    display: none;
+}
+
+#msg-success {
+
+    display: none;
+}
+
+.msg {
+    font-size: 150%;
+}
+
+
+h2 {
+    font-family: Courier;
+}
+
+.dnd {
+    width: 170px;
+    margin-bottom: 2px;
+    height: 30px;
+    border: 1px solid #aaaaaa;
+}
