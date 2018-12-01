@@ -23,8 +23,8 @@
     <hr>
     <div class="font-italic text-danger mb-1" id="msg-error" th:text="#{add.error.fields}">Fill all fields</div>
     <div id="msg-success">
-        <div class="font-italic text-success mb-1 msg" th:text="#{add.msg.success}">Instruction was added</div>
-        <div><a th:href="${'/user/' + loggedInUser.getId()}">Мой профиль</a></div>
+    <div class="font-italic text-success mb-1 msg"  th:text="#{add.msg.success}">Instruction was added</div>
+        <div> <a th:href="${'/user/' + loggedInUser.getId()}">Мой профиль</a></div>
     </div>
     <form>
         <h6 th:text="#{add.category}">Select category:</h6>
@@ -39,16 +39,14 @@
         <h6 class="mt-4"><span th:text="#{add.step}">Type step</span> 1:</h6>
         <div class="textareas mt-2">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <textarea class="form-control mt-1 textarea" rows="1" cols="70" id="textarea-name-1"
                               placeholder="Title"></textarea>
                     <textarea class="form-control mt-1 textarea" rows="7" cols="70" id="textarea-text-1"
                               placeholder="Content"></textarea>
                 </div>
-                <div class="col-lg-6">
-                    <form action="">
-                        <div id="dropzone-1" class="dropzone "></div>
-                    </form>
+                <div class="col-md-6">
+                    <form action=""><div id="dropzone-1" class="dropzone "></div></form>
                 </div>
             </div>
         </div>

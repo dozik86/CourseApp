@@ -17,8 +17,8 @@
 <div class="container mt-5" sec:authorize="isAnonymous()">
     <div class="row">
 
-        <div class="col-lg-1"></div>
-        <div class="col-lg-4" th:if="${action == 'login'}">
+        <div class="col-md-1"></div>
+        <div class="col-md-4" th:if="${action == 'login'}">
             <h1 class="text-center login-title" th:text="#{login.header}">Sign in to continue</h1>
             <div class="account-wall">
                 <img class="profile-img"
@@ -44,7 +44,7 @@
             <a href="/register" class="text-center new-account" th:text="#{login.createaccount}">Create an account </a>
         </div>
 
-        <div class="col-lg-4" th:if="${action == 'register'}">
+        <div class="col-md-4" th:if="${action == 'register'}">
             <h1 class="text-center login-title" th:text="#{register.header}">Sign up to continue</h1>
             <div class="account-wall">
                 <img class="profile-img"
@@ -69,9 +69,9 @@
             <a href="/login" class="text-center new-account" th:text="#{register.haveaccount}">Have an account? </a>
         </div>
 
-        <div class="col-lg-1 border border-bottom-0 border-left-0 border-top-0"></div>
+        <div class="col-md-1 border border-bottom-0 border-left-0 border-top-0"></div>
 
-        <div class="col-lg-6 text-center" id="icons">
+        <div class="col-md-6 text-center" id="icons">
             <h1 th:class="login-title" th:text="#{login.social.header}">Or sign in via social network</h1>
             <div class="text-center mt-3">
                 <a href="auth/vk"><img width="90" height="88" th:src="@{/icons/vk.svg}"></img></a>
