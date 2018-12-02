@@ -30,7 +30,7 @@
         </div>
         <div class="text-right col" th:if="${user.getId() == loggedInUser.getId() or loggedInUser.isAdmin() == true}">
             <a th:href="@{'/user/' + ${user.getId()} + '/add'}">
-                <button class="btn btn-success btn-lg text-right" th:text="#{me.btn.add}">Add instruction</button>
+                <button class="btn btn-success btn-lg text-right" th:text="#{me.btn.add}">Add workbook</button>
             </a>
         </div>
 
@@ -45,7 +45,7 @@
         <div class="col-md-7 ">
 
             <div class="subheader mb-4">
-                <h5 class="subheader mt-2" th:text="#{me.instr.header}">instructions: </h5>
+                <h5 class="subheader mt-2" th:text="#{me.wbook.header}">workbooks: </h5>
             </div>
             <table id="example" class="table table-sm table-bordered" width="100%">
                 <thead>
@@ -68,13 +68,13 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr th:each="instruction : ${instructions}">
+                <tr th:each="workbook : ${workbooks}">
                     <td width="10%" class="text-center"><input th:if="${loggedInUser.getId() == user.getId() or loggedInUser.isAdmin() == true}"
                                                                type="checkbox" class="chkbx"
-                                                               th:value="${instruction.getId()}"></td>
-                    <td width="60%"><a th:href="@{'/instruction/' + ${instruction.getId()}}"
-                                       th:text="${instruction.getName()}"></a></td>
-                    <td width="30%" th:text="${instruction.getCategory().getName()}">Category</td>
+                                                               th:value="${workbook.getId()}"></td>
+                    <td width="60%"><a th:href="@{'/workbook/' + ${workbook.getId()}}"
+                                       th:text="${workbook.getName()}"></a></td>
+                    <td width="30%" th:text="${workbook.getCategory().getName()}">Category</td>
                 </tr>
 
                 </tbody>
@@ -140,8 +140,8 @@
                 </div>
                 <div class="mb-2">
                     <i class="fa fa-info-circle mr-2"></i>
-                    <span class="font-italic" th:text="#{me.user.instquantity}">instructions's quantity:  </span>
-                    <span class="font-weight-bold" th:text="${user.getInstructionsQuantity()}"></span>
+                    <span class="font-italic" th:text="#{me.user.wbookquantity}">workbooks's quantity:  </span>
+                    <span class="font-weight-bold" th:text="${user.getWorkbooksQuantity()}"></span>
                 </div>
             </div>
         </div>

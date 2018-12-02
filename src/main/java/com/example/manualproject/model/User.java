@@ -1,7 +1,5 @@
 package com.example.manualproject.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
@@ -42,7 +40,7 @@ public class User {
 
     @OneToMany(mappedBy = "author")
     @IndexedEmbedded(depth = 1)
-    private Set<Instruction> instructions;
+    private Set<Workbook> workbooks;
 
     @OneToMany(mappedBy = "author")
     @IndexedEmbedded(depth = 1)
@@ -131,15 +129,15 @@ public class User {
         return false;
     }
 
-    public Set<Instruction> getInstructions() {
-        return instructions;
+    public Set<Workbook> getWorkbooks() {
+        return workbooks;
     }
 
-    public void setInstructions(Set<Instruction> instructions) {
-        this.instructions = instructions;
+    public void setWorkbooks(Set<Workbook> workbooks) {
+        this.workbooks = workbooks;
     }
 
-    public int getInstructionsQuantity() {
-        return getInstructions().size();
+    public int getWorkbooksQuantity() {
+        return getWorkbooks().size();
     }
 }

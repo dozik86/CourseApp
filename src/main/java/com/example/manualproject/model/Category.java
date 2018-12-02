@@ -19,7 +19,7 @@ public class Category {
 
     @IndexedEmbedded(depth = 1)
     @OneToMany(mappedBy = "category")
-    private Set<Instruction> instructions;
+    private Set<Workbook> workbooks;
 
     public Long getId() {
         return id;
@@ -37,11 +37,11 @@ public class Category {
         this.name = name;
     }
 
-    public Set<Instruction> getInstructions() {
-        return instructions;
+    public Set<Workbook> getWorkbooks() {
+        return workbooks;
     }
 
-    public void setInstructions(Set<Instruction> instructions) {
-        this.instructions = instructions;
+    public void setWorkbooks(Set<Workbook> workbooks) {
+        this.workbooks = workbooks;
     }
 }

@@ -1,6 +1,6 @@
 package com.example.manualproject.service;
 
-import com.example.manualproject.model.Instruction;
+import com.example.manualproject.model.Workbook;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Component
@@ -37,24 +36,24 @@ public class HibernateSearchService {
     }
 
     @Transactional
-    public List<Instruction> search(String searchTerm, String searchBy) {
+    public List<Workbook> search(String searchTerm, String searchBy) {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-        QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Instruction.class).get();
+        QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Workbook.class).get();
         Query luceneQuery = null;
         if (searchBy.equals("global")) luceneQuery = queryForGlobalSearch(qb, searchTerm);
         if (searchBy.equals("tag")) luceneQuery = queryForTagSearch(qb, searchTerm);
-        javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Instruction.class);
-        List<Instruction> instructions = null;
+        javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Workbook.class);
+        List<Workbook> workbooks = null;
         try {
-            instructions = jpaQuery.getResultList();
+            workbooks = jpaQuery.getResultList();
         } catch (NoResultException nre) {
         }
-        return instructions;
+        return workbooks;
     }
 
     Query queryForGlobalSearch(QueryBuilder qb, String searchTerm) {
         Query luceneQuery = qb.keyword().fuzzy().withEditDistanceUpTo(1).withPrefixLength(1)
-                .onFields("name", "category.name", "steps.name", "steps.text", "tags.name", "author.name")
+                .onFields("name", "category.name", "questions.name", "questions.text", "tags.name", "author.name")
                 .matching(searchTerm).createQuery();
         return luceneQuery;
     }

@@ -5,27 +5,35 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
-@Table(name = "comments")
+@Table(name = "questions")
 @Indexed
-public class Comment {
+public class Question {
     @Id
     @GeneratedValue
     private long id;
 
+    @NotNull
+    @Field
+    private String name;
+    @NotNull
+    @Column(length = 10000)
     @Field
     private String text;
 
-    @ManyToOne
-    @JoinColumn(name = "authorid", referencedColumnName = "id")
-    @IndexedEmbedded
-    private User author;
+    private int number;
 
     @ManyToOne
     @JoinColumn(name = "workbookid", referencedColumnName = "id")
     @IndexedEmbedded
     private Workbook workbook;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    List<Image> images;
+
 
     public long getId() {
         return id;
@@ -43,13 +51,14 @@ public class Comment {
         this.text = text;
     }
 
-    public User getAuthor() {
-        return author;
+    public int getNumber() {
+        return number;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setNumber(int number) {
+        this.number = number;
     }
+
 
     public Workbook getWorkbook() {
         return workbook;
@@ -59,4 +68,19 @@ public class Comment {
         this.workbook = workbook;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
 }

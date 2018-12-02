@@ -2,25 +2,20 @@ package com.example.manualproject.service;
 
 import com.example.manualproject.model.*;
 import com.example.manualproject.repository.*;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Projections;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Principal;
 import java.util.*;
 
 @Transactional
 @Component
-public class InstructionServiceImpl implements InstructionService {
+public class WorkbookServiceImpl implements WorkbookService {
     @Autowired
-    private InstructionRepository instructionRepository;
+    private WorkbookRepository workbookRepository;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -37,43 +32,43 @@ public class InstructionServiceImpl implements InstructionService {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void processInstruction(String json, long id) {
+    public void processWorkbook(String json, long id) {
         JSONObject jsonObject = new JSONObject(json);
-        Instruction instruction = new Instruction();
-        instruction.setAuthor(userRepository.findById(id));
-        instruction.setName(jsonObject.getString("name"));
-        instruction.setCategory(categoryRepository.findById(jsonObject.getLong("category")));
-        instruction.setSteps(getSteps(jsonObject, instruction));
-        instruction.setTags(getTags(jsonObject));
-        save(instruction);
+        Workbook workbook = new Workbook();
+        workbook.setAuthor(userRepository.findById(id));
+        workbook.setName(jsonObject.getString("name"));
+        workbook.setCategory(categoryRepository.findById(jsonObject.getLong("category")));
+        workbook.setQuestions(getQuestions(jsonObject, workbook));
+        workbook.setTags(getTags(jsonObject));
+        save(workbook);
     }
 
 
-    public List<Step> getSteps(JSONObject jsonObject, Instruction instruction) {
-        List<Step> steps = new ArrayList<Step>();
-        JSONArray ja = jsonObject.getJSONArray("steps");
+    public List<Question> getQuestions(JSONObject jsonObject, Workbook workbook) {
+        List<Question> questions = new ArrayList<Question>();
+        JSONArray ja = jsonObject.getJSONArray("questions");
         int len = ja.length();
         for (int i = 0; i < len; i++) {
-            Step step = new Step();
+            Question question = new Question();
             JSONObject newJsonObject = ja.getJSONObject(i);
-            step.setName(newJsonObject.getString("name"));
-            step.setNumber(i + 1);
-            step.setText(newJsonObject.getString("text"));
-            step.setImages(getImages(newJsonObject, step));
-            step.setInstruction(instruction);
-            steps.add(step);
+            question.setName(newJsonObject.getString("name"));
+            question.setNumber(i + 1);
+            question.setText(newJsonObject.getString("text"));
+            question.setImages(getImages(newJsonObject, question));
+            question.setWorkbook(workbook);
+            questions.add(question);
         }
-        return steps;
+        return questions;
     }
 
-    public List<Image> getImages(JSONObject jsonObject, Step step) {
+    public List<Image> getImages(JSONObject jsonObject, Question question) {
         List<Image> images = new ArrayList<Image>();
         JSONArray newJsonArray = jsonObject.getJSONArray("images");
         int length = newJsonArray.length();
         for (int i = 0; i < length; i++) {
             Image image = new Image();
             image.setLink(newJsonArray.getString(i));
-            image.setStep(step);
+            image.setQuestion(question);
             images.add(image);
         }
         return images;
@@ -101,29 +96,29 @@ public class InstructionServiceImpl implements InstructionService {
     public void delete(String[] delArray) {
         long[] idArray = Arrays.asList(delArray).stream().mapToLong(Long::parseLong).toArray();
         for (int i = 0; i < idArray.length; i++)
-            instructionRepository.deleteById(idArray[i]);
+            workbookRepository.deleteById(idArray[i]);
     }
 
-    public Instruction findById(long id) {
-        return instructionRepository.findById(id);
+    public Workbook findById(long id) {
+        return workbookRepository.findById(id);
     }
 
-    public void save(Instruction instruction) {
-        instructionRepository.save(instruction);
+    public void save(Workbook workbook) {
+        workbookRepository.save(workbook);
     }
 
-    public List<Instruction> find4LastInstructions() {
-        return instructionRepository.findFirst4ByOrderByDateDesc();
+    public List<Workbook> find4LastWorkbooks() {
+        return workbookRepository.findFirst4ByOrderByDateDesc();
     }
 
-    public List<Instruction> find4TopInstructions() {
-        List<Instruction> instructions = instructionRepository.findAll();
-        Collections.sort(instructions, new Comparator<Instruction>() {
-            public int compare(Instruction one, Instruction other) {
+    public List<Workbook> find4TopWorkbooks() {
+        List<Workbook> workbooks = workbookRepository.findAll();
+        Collections.sort(workbooks, new Comparator<Workbook>() {
+            public int compare(Workbook one, Workbook other) {
                 return one.getAverageRating().compareTo(other.getAverageRating());
             }
         });
-        return instructions.subList(instructions.size() - 4, instructions.size());
+        return workbooks.subList(workbooks.size() - 4, workbooks.size());
     }
 
 }

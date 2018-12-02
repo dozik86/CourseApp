@@ -1,10 +1,10 @@
 package com.example.manualproject.controller;
 
-import com.example.manualproject.model.Instruction;
+import com.example.manualproject.model.Workbook;
 import com.example.manualproject.model.User;
 import com.example.manualproject.service.ChangeEmail;
 import com.example.manualproject.service.CustomUserDetails;
-import com.example.manualproject.service.InstructionService;
+import com.example.manualproject.service.WorkbookService;
 import com.example.manualproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ public class ProfileController {
     private UserService userService;
 
     @Autowired
-    private InstructionService instructionService;
+    private WorkbookService workbookService;
 
     @Autowired
     private ChangeEmail changeEmail;
@@ -36,9 +36,9 @@ public class ProfileController {
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
     public ModelAndView showUserPage(@PathVariable long userId) {
         User user = userService.findById(userId);
-        Set<Instruction> instructions = user.getInstructions();
+        Set<Workbook> workbooks = user.getWorkbooks();
         ModelAndView mav = new ModelAndView("user", "user", user);
-        mav.addObject("instructions", user.getInstructions());
+        mav.addObject("workbooks", user.getWorkbooks());
         return mav;
     }
 

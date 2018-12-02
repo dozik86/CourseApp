@@ -1,9 +1,7 @@
 package com.example.manualproject.service;
 
-import com.example.manualproject.model.Instruction;
 import com.example.manualproject.model.Rating;
-import com.example.manualproject.model.User;
-import com.example.manualproject.repository.InstructionRepository;
+import com.example.manualproject.repository.WorkbookRepository;
 import com.example.manualproject.repository.RatingRepository;
 import com.example.manualproject.repository.UserRepository;
 import org.json.JSONObject;
@@ -11,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Transactional
@@ -22,7 +18,7 @@ public class RatingServiceImpl implements RatingService {
     private RatingRepository ratingRepository;
 
     @Autowired
-    private InstructionRepository instructionRepository;
+    private WorkbookRepository workbookRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -35,8 +31,8 @@ public class RatingServiceImpl implements RatingService {
 //        return users;
 //    }
 
-    public int getUserRating(long userId, long instructionId) {
-        Set<Rating> ratings = instructionRepository.findById(instructionId).getRatings();
+    public int getUserRating(long userId, long workbookId) {
+        Set<Rating> ratings = workbookRepository.findById(workbookId).getRatings();
         for (Rating rating : ratings) {
             if (rating.getAuthor().getId() == userId) {
                 return rating.getValue();
@@ -45,13 +41,13 @@ public class RatingServiceImpl implements RatingService {
         return -1;
     }
 
-    public void addRating(String json, long instructionId) {
+    public void addRating(String json, long workbookId) {
         JSONObject jsonObject = new JSONObject(json);
         long authorId = jsonObject.getLong("author");
-        Rating rating = ratingRepository.findByAuthorIdInAndInstructionId(authorId, instructionId);
+        Rating rating = ratingRepository.findByAuthorIdInAndWorkbookId(authorId, workbookId);
         if (rating == null) {
             rating = new Rating();
-            rating.setInstruction(instructionRepository.findById(instructionId));
+            rating.setWorkbook(workbookRepository.findById(workbookId));
             rating.setAuthor(userRepository.findById(authorId));
         }
         rating.setValue(jsonObject.getInt("value"));

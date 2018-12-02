@@ -5,7 +5,7 @@ import com.example.manualproject.model.Comment;
 import java.util.List;
 
 public interface CommentService {
-    void processComment(String json, long instructionId);
+    void processComment(String json, long workbookId);
 
     void deleteComment(long id);
 

@@ -1,7 +1,6 @@
 package com.example.manualproject.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "images")
@@ -12,8 +11,8 @@ public class Image {
     private String link;
 
     @ManyToOne
-    @JoinColumn(name = "stepid", referencedColumnName = "id")
-    private Step step;
+    @JoinColumn(name = "questionid", referencedColumnName = "id")
+    private Question question;
 
     public long getId() {
         return id;
@@ -31,11 +30,11 @@ public class Image {
         this.link = link;
     }
 
-    public Step getStep() {
-        return step;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setStep(Step step) {
-        this.step = step;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 }

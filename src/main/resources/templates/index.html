@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8"/>
-    <title>Instructions</title>
+    <title>Workbooks</title>
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.0.0-beta-1/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/index.css"/>
     <link rel="stylesheet" type="text/css" href="/jqcloud/jqcloud.min.css"/>
@@ -19,8 +19,7 @@
 <div th:replace="nav :: navbar"></div>
 <div class="container">
     <div class="row mt-5">
-        <h2 class="header" th:text="#{index.header.last}">Latest instructions</h2>
-
+        <h2 class="header" th:text="#{index.header.last}">Latest workbooks</h2>
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -28,19 +27,19 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3 text-center border pt-4 pb-4 instr" th:each="instruction : ${lastInstructions}">
-            <a th:href="@{'/instruction/' + ${instruction.getId()}}" >
-                <img class="pb-3" th:src="${instruction.steps[0].images[0].link}" width="85%" height="50%">
+        <div class="col-md-3 text-center border pt-4 wbook pb-4" th:each="workbook : ${lastWorkbooks}">
+            <a th:href="@{'/workbook/' + ${workbook.getId()}}" >
+                <img class="pb-3" th:src="${workbook.questions[0].images[0].link}" width="85%" height="50%">
             </a>
             <br>
-            <span class="font-weight-bold header" th:text="${instruction.getName()}"></span><br><br>
-            <span class="font-italic " th:text="${#strings.abbreviate(instruction.steps[0].text,140)}"></span><br>
-            <a  th:href="@{'/instruction/' + ${instruction.getId()}}" th:text="#{index.readmore}">Read more</a>
+            <span class="font-weight-bold header" th:text="${workbook.getName()}"></span><br><br>
+            <span class="font-italic " th:text="${#strings.abbreviate(workbook.questions[0].text,140)}"></span><br>
+            <a  th:href="@{'/workbook/' + ${workbook.getId()}}" th:text="#{index.readmore}">Read more</a>
         </div>
     </div>
 
     <div class="row mt-5">
-        <h2 class="header" th:text="#{index.header.top}">Top instructions</h2>
+        <h2 class="header" th:text="#{index.header.top}">Top workbooks</h2>
 
     </div>
     <div class="row">
@@ -49,14 +48,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3 text-center border pt-4 instr pb-4" th:each="instruction : ${topInstructions}">
-            <a th:href="@{'/instruction/' + ${instruction.getId()}}">
-                <img class="pb-3" th:src="${instruction.steps[0].images[0].link}" width="85%" height="50%" alt=/>
+        <div class="col-md-3 text-center border pt-4 wbook pb-4" th:each="workbook : ${topWorkbooks}">
+            <a th:href="@{'/workbook/' + ${workbook.getId()}}">
+                <img class="pb-3" th:src="${workbook.questions[0].images[0].link}" width="85%" height="50%" alt=/>
             </a>
             <br>
-            <span class="font-weight-bold header" th:text="${instruction.getName()}"></span><br><br>
-            <span class="font-italic " th:text="${#strings.abbreviate(instruction.steps[0].text,140)}"></span><br>
-            <a th:href="@{'/instruction/' + ${instruction.getId()}}" th:text="#{index.readmore}">Read more</a>
+            <span class="font-weight-bold header" th:text="${workbook.getName()}"></span><br><br>
+            <span class="font-italic " th:text="${#strings.abbreviate(workbook.questions[0].text,140)}"></span><br>
+            <a th:href="@{'/workbook/' + ${workbook.getId()}}" th:text="#{index.readmore}">Read more</a>
         </div>
     </div>
     <div class="row justify-content-center">

@@ -13,7 +13,7 @@ $('#btn-comment').click(function () {
 function delComment() {
     $.ajax({
         type: 'GET',
-        url: '/instruction/' + getId() + '/comment/delete',
+        url: '/workbook/' + getId() + '/comment/delete',
         data: {id: $('#btn-del').attr('value')},
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
@@ -49,7 +49,7 @@ function addComment(comment) {
     var json = JSON.stringify(comment);
     $.ajax({
         type: 'POST',
-        url: '/instruction/' + getId() + '/comment',
+        url: '/workbook/' + getId() + '/comment',
         data: json,
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',

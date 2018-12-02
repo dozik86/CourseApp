@@ -12,6 +12,6 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 
     Tag findById(Long id);
 
-    @Query(value = "SELECT tag_id FROM instruction_tag", nativeQuery = true)
+    @Query(value = "SELECT tag_id FROM workbook_tag", nativeQuery = true)
     List<BigInteger> getAllTagIds();
 }

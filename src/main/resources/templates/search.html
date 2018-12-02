@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8"/>
-    <title>Instructions</title>
+    <title>Workbooks</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.0.0-beta-1/css/bootstrap.min.css"/>
     <link rel="stylesheet" th:href="@{/css/search.css}"/>
     <script src="/webjars/jquery/3.0.0/jquery.min.js" type="text/javascript"></script>
@@ -19,11 +19,11 @@
 
     <h2 class="header" th:text="#{search.header}">Search results </h2>
     <hr>
-    <div class="row pt-2" th:if="${instructions != null}" th:each="instruction : ${instructions}">
+    <div class="row pt-2" th:if="${workbooks != null}" th:each="workbook : ${workbooks}">
         <div class="col-lg-12 border mb-1 pt-2">
-            <a class="search-name " th:href="@{'/instruction/' + ${instruction.getId()}}"
-               th:text="${instruction.getName()}"></a>
-            <p class="search-text font-italic mt-1" th:text="${#strings.abbreviate(instruction.steps[0].text,300)}"></p>
+            <a class="search-name " th:href="@{'/workbook/' + ${workbook.getId()}}"
+               th:text="${workbook.getName()}"></a>
+            <p class="search-text font-italic mt-1" th:text="${#strings.abbreviate(workbook.questions[0].text,300)}"></p>
         </div>
     </div>
 </div>

@@ -5,7 +5,6 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,7 +26,7 @@ public class Tag {
                     CascadeType.PERSIST
             })
     @IndexedEmbedded(depth = 1)
-    private Set<Instruction> instructions;
+    private Set<Workbook> workbooks;
 
     public Long getId() {
         return id;
@@ -45,11 +44,11 @@ public class Tag {
         this.name = name;
     }
 
-    public Set<Instruction> getInstructions() {
-        return instructions;
+    public Set<Workbook> getWorkbooks() {
+        return workbooks;
     }
 
-    public void setInstructions(Set<Instruction> instructions) {
-        this.instructions = instructions;
+    public void setWorkbooks(Set<Workbook> workbooks) {
+        this.workbooks = workbooks;
     }
 }

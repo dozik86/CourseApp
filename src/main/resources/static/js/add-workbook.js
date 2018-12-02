@@ -1,5 +1,5 @@
 var index = 1;
-var stepsArr = [];
+var questionsArr = [];
 var dropzones = [];
 
 function getId() {
@@ -100,20 +100,20 @@ function checkTextareas() {
 $(".submit-btn").click(function () {
     if (checkTextareas()) {
         for (var i = 1; i <= index; i++) {
-            stepsArr[i - 1] = {
+            questionsArr[i - 1] = {
                 name: $('#textarea-name-' + i).val(),
                 text: $('#textarea-text-' + i).val(),
                 images: uploadImages(i - 1)
             };
 
         }
-        var instruction = {
+        var workbook = {
             category: $("#category").val(),
             name: $("#name").val(),
-            steps: stepsArr,
+            questions: questionsArr,
             tags: $("#tags").tagsinput('items')
         };
-        sendArray(instruction);
+        sendArray(workbook);
     }
 });
 
@@ -122,8 +122,8 @@ function showSuccessMsg() {
     $("#msg-success").show();
 }
 
-function sendArray(instruction) {
-    var json = JSON.stringify(instruction);
+function sendArray(workbook) {
+    var json = JSON.stringify(workbook);
     $.ajax({
         type: 'POST',
         url: '/user/' + getId() + '/add',

@@ -1,21 +1,14 @@
 package com.example.manualproject.controller;
 
-import com.example.manualproject.model.Category;
-import com.example.manualproject.model.Instruction;
-import com.example.manualproject.model.User;
-import com.example.manualproject.repository.CategoryRepository;
+import com.example.manualproject.model.Workbook;
 import com.example.manualproject.service.*;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class HomeController {
@@ -23,7 +16,7 @@ public class HomeController {
     private UserService userService;
 
     @Autowired
-    private InstructionService instructionService;
+    private WorkbookService workbookService;
 
     @Autowired
     private CategoryService categoryService;
@@ -38,8 +31,8 @@ public class HomeController {
     public ModelAndView index(@AuthenticationPrincipal CustomUserDetails customUser) {
         ModelAndView mav = new ModelAndView("index");
         if (customUser != null) mav.addObject("user", userService.findById(customUser.getId()));
-        mav.addObject("lastInstructions", instructionService.find4LastInstructions());
-        mav.addObject("topInstructions", instructionService.find4TopInstructions());
+        mav.addObject("lastWorkbooks", workbookService.find4LastWorkbooks());
+        mav.addObject("topWorkbooks", workbookService.find4TopWorkbooks());
         return mav;
     }
 
@@ -51,8 +44,8 @@ public class HomeController {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value = "search", required = false) String q) {
-        List<Instruction> searchResults = null;
+        List<Workbook> searchResults = null;
         if (q != null) searchResults = searchService.search(q, "global");
-        return new ModelAndView("search", "instructions", searchResults);
+        return new ModelAndView("search", "workbooks", searchResults);
     }
 }

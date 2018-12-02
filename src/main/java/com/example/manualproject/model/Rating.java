@@ -3,7 +3,6 @@ package com.example.manualproject.model;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "ratings")
@@ -23,8 +22,8 @@ public class Rating {
                     CascadeType.REFRESH,
                     CascadeType.PERSIST
             })
-    @JoinColumn(name = "instructionid", referencedColumnName = "id")
-    private Instruction instruction;
+    @JoinColumn(name = "workbookid", referencedColumnName = "id")
+    private Workbook workbook;
 
     @ManyToOne(cascade =
             {
@@ -52,12 +51,12 @@ public class Rating {
         this.value = value;
     }
 
-    public Instruction getInstruction() {
-        return instruction;
+    public Workbook getWorkbook() {
+        return workbook;
     }
 
-    public void setInstruction(Instruction instruction) {
-        this.instruction = instruction;
+    public void setWorkbook(Workbook workbook) {
+        this.workbook = workbook;
     }
 
     public User getAuthor() {

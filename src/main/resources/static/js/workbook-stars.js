@@ -6,7 +6,7 @@ $('.star').hover(function () {
     disHighlightAll();
 });
 
-function getInstructionId() {
+function getWorkbookId() {
     var url = window.location.pathname;
     var segments = url.split('/');
     return segments[2];
@@ -43,7 +43,7 @@ function addRating(rating) {
     var json = JSON.stringify(rating);
     $.ajax({
         type: 'POST',
-        url: '/instruction/' + getInstructionId() + '/rating',
+        url: '/workbook/' + getWorkbookId() + '/rating',
         data: json,
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
